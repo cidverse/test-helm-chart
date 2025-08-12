@@ -323,75 +323,6 @@
               ]
             },
             "order": 4
-          },
-          {
-            "id": "5",
-            "name": "zizmor-scan",
-            "slug": "zizmor-scan",
-            "stage": "scan",
-            "scope": "project",
-            "action": "builtin://actions/zizmor-scan",
-            "access": {
-              "env": [
-                {
-                  "name": "GH_HOSTNAME",
-                  "description": "GH_HOSTNAME is required for some online audits"
-                },
-                {
-                  "name": "GH_TOKEN",
-                  "description": "GH_TOKEN is required for some online audits"
-                }
-              ],
-              "executables": [
-                {
-                  "name": "zizmor",
-                  "constraint": "=\u003e 1.4.1"
-                },
-                {
-                  "name": "gitlab-sarif-converter"
-                }
-              ],
-              "network": [
-                {
-                  "host": "github.com:443"
-                },
-                {
-                  "host": "api.github.com:443"
-                },
-                {
-                  "host": "codeload.github.com:443"
-                },
-                {
-                  "host": "uploads.github.com:443"
-                },
-                {
-                  "host": "objects.githubusercontent.com:443"
-                },
-                {
-                  "host": "raw.githubusercontent.com:443"
-                },
-                {
-                  "host": "ghcr.io:443"
-                },
-                {
-                  "host": "pkg-containers.githubusercontent.com:443"
-                }
-              ]
-            },
-            "inputs": {},
-            "outputs": {
-              "artifacts": [
-                {
-                  "type": "report",
-                  "format": "sarif"
-                },
-                {
-                  "type": "report",
-                  "format": "gl-codequality"
-                }
-              ]
-            },
-            "order": 5
           }
         ]
       },
@@ -739,75 +670,6 @@
               ]
             },
             "order": 4
-          },
-          {
-            "id": "5",
-            "name": "zizmor-scan",
-            "slug": "zizmor-scan",
-            "stage": "scan",
-            "scope": "project",
-            "action": "builtin://actions/zizmor-scan",
-            "access": {
-              "env": [
-                {
-                  "name": "GH_HOSTNAME",
-                  "description": "GH_HOSTNAME is required for some online audits"
-                },
-                {
-                  "name": "GH_TOKEN",
-                  "description": "GH_TOKEN is required for some online audits"
-                }
-              ],
-              "executables": [
-                {
-                  "name": "zizmor",
-                  "constraint": "=\u003e 1.4.1"
-                },
-                {
-                  "name": "gitlab-sarif-converter"
-                }
-              ],
-              "network": [
-                {
-                  "host": "github.com:443"
-                },
-                {
-                  "host": "api.github.com:443"
-                },
-                {
-                  "host": "codeload.github.com:443"
-                },
-                {
-                  "host": "uploads.github.com:443"
-                },
-                {
-                  "host": "objects.githubusercontent.com:443"
-                },
-                {
-                  "host": "raw.githubusercontent.com:443"
-                },
-                {
-                  "host": "ghcr.io:443"
-                },
-                {
-                  "host": "pkg-containers.githubusercontent.com:443"
-                }
-              ]
-            },
-            "inputs": {},
-            "outputs": {
-              "artifacts": [
-                {
-                  "type": "report",
-                  "format": "sarif"
-                },
-                {
-                  "type": "report",
-                  "format": "gl-codequality"
-                }
-              ]
-            },
-            "order": 5
           }
         ]
       },
@@ -1112,75 +974,6 @@
           },
           {
             "id": "4",
-            "name": "zizmor-scan",
-            "slug": "zizmor-scan",
-            "stage": "scan",
-            "scope": "project",
-            "action": "builtin://actions/zizmor-scan",
-            "access": {
-              "env": [
-                {
-                  "name": "GH_HOSTNAME",
-                  "description": "GH_HOSTNAME is required for some online audits"
-                },
-                {
-                  "name": "GH_TOKEN",
-                  "description": "GH_TOKEN is required for some online audits"
-                }
-              ],
-              "executables": [
-                {
-                  "name": "zizmor",
-                  "constraint": "=\u003e 1.4.1"
-                },
-                {
-                  "name": "gitlab-sarif-converter"
-                }
-              ],
-              "network": [
-                {
-                  "host": "github.com:443"
-                },
-                {
-                  "host": "api.github.com:443"
-                },
-                {
-                  "host": "codeload.github.com:443"
-                },
-                {
-                  "host": "uploads.github.com:443"
-                },
-                {
-                  "host": "objects.githubusercontent.com:443"
-                },
-                {
-                  "host": "raw.githubusercontent.com:443"
-                },
-                {
-                  "host": "ghcr.io:443"
-                },
-                {
-                  "host": "pkg-containers.githubusercontent.com:443"
-                }
-              ]
-            },
-            "inputs": {},
-            "outputs": {
-              "artifacts": [
-                {
-                  "type": "report",
-                  "format": "sarif"
-                },
-                {
-                  "type": "report",
-                  "format": "gl-codequality"
-                }
-              ]
-            },
-            "order": 4
-          },
-          {
-            "id": "5",
             "name": "changelog-generate",
             "slug": "changelog-generate",
             "stage": "publish",
@@ -1190,15 +983,13 @@
               "gitleaks-scan",
               "helm-build-test-helm-chart",
               "semgrep-scan",
-              "trivyfs-scan",
-              "zizmor-scan"
+              "trivyfs-scan"
             ],
             "run-after-by-name": [
               "gitleaks-scan",
               "helm-build [test-helm-chart]",
               "semgrep-scan",
-              "trivyfs-scan",
-              "zizmor-scan"
+              "trivyfs-scan"
             ],
             "access": {
               "network": [
@@ -1236,10 +1027,10 @@
                 }
               ]
             },
-            "order": 5
+            "order": 4
           },
           {
-            "id": "6",
+            "id": "5",
             "name": "gitlab-release-publish",
             "slug": "gitlab-release-publish",
             "stage": "publish",
@@ -1250,16 +1041,14 @@
               "gitleaks-scan",
               "helm-build-test-helm-chart",
               "semgrep-scan",
-              "trivyfs-scan",
-              "zizmor-scan"
+              "trivyfs-scan"
             ],
             "run-after-by-name": [
               "changelog-generate",
               "gitleaks-scan",
               "helm-build [test-helm-chart]",
               "semgrep-scan",
-              "trivyfs-scan",
-              "zizmor-scan"
+              "trivyfs-scan"
             ],
             "uses-output-of": [
               "changelog-generate"
@@ -1321,7 +1110,7 @@
               ]
             },
             "outputs": {},
-            "order": 6
+            "order": 5
           }
         ]
       },
@@ -1672,75 +1461,6 @@
               ]
             },
             "order": 4
-          },
-          {
-            "id": "5",
-            "name": "zizmor-scan",
-            "slug": "zizmor-scan",
-            "stage": "scan",
-            "scope": "project",
-            "action": "builtin://actions/zizmor-scan",
-            "access": {
-              "env": [
-                {
-                  "name": "GH_HOSTNAME",
-                  "description": "GH_HOSTNAME is required for some online audits"
-                },
-                {
-                  "name": "GH_TOKEN",
-                  "description": "GH_TOKEN is required for some online audits"
-                }
-              ],
-              "executables": [
-                {
-                  "name": "zizmor",
-                  "constraint": "=\u003e 1.4.1"
-                },
-                {
-                  "name": "gitlab-sarif-converter"
-                }
-              ],
-              "network": [
-                {
-                  "host": "github.com:443"
-                },
-                {
-                  "host": "api.github.com:443"
-                },
-                {
-                  "host": "codeload.github.com:443"
-                },
-                {
-                  "host": "uploads.github.com:443"
-                },
-                {
-                  "host": "objects.githubusercontent.com:443"
-                },
-                {
-                  "host": "raw.githubusercontent.com:443"
-                },
-                {
-                  "host": "ghcr.io:443"
-                },
-                {
-                  "host": "pkg-containers.githubusercontent.com:443"
-                }
-              ]
-            },
-            "inputs": {},
-            "outputs": {
-              "artifacts": [
-                {
-                  "type": "report",
-                  "format": "sarif"
-                },
-                {
-                  "type": "report",
-                  "format": "gl-codequality"
-                }
-              ]
-            },
-            "order": 5
           }
         ]
       },

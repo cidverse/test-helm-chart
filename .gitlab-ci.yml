@@ -138,26 +138,6 @@ stages:
       expire_in: 1 day
       reports:
         codequality: .dist/trivyfs-scan/report/gl-codequality/*.json
-## zizmor-scan
-"nightly/zizmor-scan":
-    <<: *default_job
-    stage: scan
-    needs: []
-    dependencies: []
-    timeout: 10m
-    rules:
-      - if: '$CI_PIPELINE_SOURCE == "schedule" && $CI_PIPELINE_SCHEDULE_DESCRIPTION == "nightly"'
-        when: always
-      - when: never
-    script:
-        - cid --log-level=${CID_LOGLEVEL:-info} plan execute --state-file ".cid/state-gitlab.json" --state-wf-name "nightly" --step "zizmor-scan"
-    artifacts:
-      name: "nightly/zizmor-scan"
-      paths:
-        - .dist/zizmor-scan/
-      expire_in: 1 day
-      reports:
-        codequality: .dist/zizmor-scan/report/gl-codequality/*.json
 
 # Pull Request
 ## helm-build [test-helm-chart]
@@ -262,26 +242,6 @@ stages:
       expire_in: 1 day
       reports:
         codequality: .dist/trivyfs-scan/report/gl-codequality/*.json
-## zizmor-scan
-"pull-request/zizmor-scan":
-    <<: *default_job
-    stage: scan
-    needs: []
-    dependencies: []
-    timeout: 10m
-    rules:
-      - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
-        when: always
-      - when: never
-    script:
-        - cid --log-level=${CID_LOGLEVEL:-info} plan execute --state-file ".cid/state-gitlab.json" --state-wf-name "pull-request" --step "zizmor-scan"
-    artifacts:
-      name: "pull-request/zizmor-scan"
-      paths:
-        - .dist/zizmor-scan/
-      expire_in: 1 day
-      reports:
-        codequality: .dist/zizmor-scan/report/gl-codequality/*.json
 
 # Release
 ## helm-build [test-helm-chart]
@@ -365,31 +325,11 @@ stages:
       expire_in: 1 day
       reports:
         codequality: .dist/trivyfs-scan/report/gl-codequality/*.json
-## zizmor-scan
-"release/zizmor-scan":
-    <<: *default_job
-    stage: scan
-    needs: []
-    dependencies: []
-    timeout: 10m
-    rules:
-      - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_TAG =~ /^v[0-9]+.[0-9]+.[0-9]+$/'
-        when: always
-      - when: never
-    script:
-        - cid --log-level=${CID_LOGLEVEL:-info} plan execute --state-file ".cid/state-gitlab.json" --state-wf-name "release" --step "zizmor-scan"
-    artifacts:
-      name: "release/zizmor-scan"
-      paths:
-        - .dist/zizmor-scan/
-      expire_in: 1 day
-      reports:
-        codequality: .dist/zizmor-scan/report/gl-codequality/*.json
 ## changelog-generate
 "release/changelog-generate":
     <<: *default_job
     stage: publish
-    needs: ["release/gitleaks-scan", "release/helm-build [test-helm-chart]", "release/semgrep-scan", "release/trivyfs-scan", "release/zizmor-scan"]
+    needs: ["release/gitleaks-scan", "release/helm-build [test-helm-chart]", "release/semgrep-scan", "release/trivyfs-scan"]
     dependencies: []
     timeout: 10m
     rules:
@@ -407,7 +347,7 @@ stages:
 "release/gitlab-release-publish":
     <<: *default_job
     stage: publish
-    needs: ["release/changelog-generate", "release/gitleaks-scan", "release/helm-build [test-helm-chart]", "release/semgrep-scan", "release/trivyfs-scan", "release/zizmor-scan"]
+    needs: ["release/changelog-generate", "release/gitleaks-scan", "release/helm-build [test-helm-chart]", "release/semgrep-scan", "release/trivyfs-scan"]
     dependencies: ["release/changelog-generate"]
     timeout: 10m
     rules:
@@ -525,23 +465,3 @@ stages:
       expire_in: 1 day
       reports:
         codequality: .dist/trivyfs-scan/report/gl-codequality/*.json
-## zizmor-scan
-"main/zizmor-scan":
-    <<: *default_job
-    stage: scan
-    needs: []
-    dependencies: []
-    timeout: 10m
-    rules:
-      - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH == "main"'
-        when: always
-      - when: never
-    script:
-        - cid --log-level=${CID_LOGLEVEL:-info} plan execute --state-file ".cid/state-gitlab.json" --state-wf-name "main" --step "zizmor-scan"
-    artifacts:
-      name: "main/zizmor-scan"
-      paths:
-        - .dist/zizmor-scan/
-      expire_in: 1 day
-      reports:
-        codequality: .dist/zizmor-scan/report/gl-codequality/*.json
