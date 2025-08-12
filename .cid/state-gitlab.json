@@ -6,6 +6,7 @@
       "name_slug": "nightly",
       "job_timeout": 10,
       "default_branch": "main",
+      "container_runtime": "podman",
       "workflow_key": "nightly",
       "workflow_config": {
         "type": "nightly",
@@ -326,8 +327,8 @@
         "quay.io/podman/stable": {
           "id": "quay.io/podman/stable",
           "type": "oci-container",
-          "version": "v5.4.2-immutable",
-          "hash": "642704dd0bcd909b722a06e0dbe199bc74163047886c3d5c869fe2c0d8e3d4d5"
+          "version": "v5.5.2-immutable",
+          "hash": "866bbcac26adb7ff238145405fa0ade33bd7e9c7bb77a5c05f819dce8a753063"
         }
       },
       "ignore_files": [
@@ -346,6 +347,7 @@
       "name_slug": "pull-request",
       "job_timeout": 10,
       "default_branch": "main",
+      "container_runtime": "podman",
       "workflow_key": "pull-request",
       "workflow_config": {
         "type": "pull-request",
@@ -664,8 +666,8 @@
         "quay.io/podman/stable": {
           "id": "quay.io/podman/stable",
           "type": "oci-container",
-          "version": "v5.4.2-immutable",
-          "hash": "642704dd0bcd909b722a06e0dbe199bc74163047886c3d5c869fe2c0d8e3d4d5"
+          "version": "v5.5.2-immutable",
+          "hash": "866bbcac26adb7ff238145405fa0ade33bd7e9c7bb77a5c05f819dce8a753063"
         }
       },
       "ignore_files": [
@@ -684,6 +686,7 @@
       "name_slug": "release",
       "job_timeout": 10,
       "default_branch": "main",
+      "container_runtime": "podman",
       "workflow_key": "release",
       "workflow_config": {
         "type": "release",
@@ -698,7 +701,6 @@
         "name": "main",
         "stages": [
           "build",
-          "lint",
           "scan",
           "publish"
         ],
@@ -758,52 +760,6 @@
           },
           {
             "id": "1",
-            "name": "helm-lint [test-helm-chart]",
-            "slug": "helm-lint-test-helm-chart",
-            "stage": "lint",
-            "scope": "module",
-            "action": "builtin://actions/helm-lint",
-            "module": "helm-test-helm-chart-chart-yaml",
-            "access": {
-              "executables": [
-                {
-                  "name": "helm",
-                  "constraint": "\u003e=3.16.0"
-                }
-              ],
-              "network": [
-                {
-                  "host": "github.com:443"
-                },
-                {
-                  "host": "api.github.com:443"
-                },
-                {
-                  "host": "codeload.github.com:443"
-                },
-                {
-                  "host": "uploads.github.com:443"
-                },
-                {
-                  "host": "objects.githubusercontent.com:443"
-                },
-                {
-                  "host": "raw.githubusercontent.com:443"
-                },
-                {
-                  "host": "ghcr.io:443"
-                },
-                {
-                  "host": "pkg-containers.githubusercontent.com:443"
-                }
-              ]
-            },
-            "inputs": {},
-            "outputs": {},
-            "order": 1
-          },
-          {
-            "id": "2",
             "name": "gitleaks-scan",
             "slug": "gitleaks-scan",
             "stage": "scan",
@@ -859,10 +815,10 @@
                 }
               ]
             },
-            "order": 2
+            "order": 1
           },
           {
-            "id": "3",
+            "id": "2",
             "name": "semgrep-scan",
             "slug": "semgrep-scan",
             "stage": "scan",
@@ -932,10 +888,10 @@
                 }
               ]
             },
-            "order": 3
+            "order": 2
           },
           {
-            "id": "4",
+            "id": "3",
             "name": "trivyfs-scan",
             "slug": "trivyfs-scan",
             "stage": "scan",
@@ -994,26 +950,24 @@
                 }
               ]
             },
-            "order": 4
+            "order": 3
           },
           {
-            "id": "5",
+            "id": "4",
             "name": "changelog-generate",
             "slug": "changelog-generate",
             "stage": "publish",
             "scope": "project",
-            "action": "container://ghcr.io/cidverse/cid-actions-go:0.1.0+changelog-generate",
+            "action": "builtin://actions/changelog-generate",
             "run-after": [
               "gitleaks-scan",
               "helm-build-test-helm-chart",
-              "helm-lint-test-helm-chart",
               "semgrep-scan",
               "trivyfs-scan"
             ],
             "run-after-by-name": [
               "gitleaks-scan",
               "helm-build [test-helm-chart]",
-              "helm-lint [test-helm-chart]",
               "semgrep-scan",
               "trivyfs-scan"
             ],
@@ -1053,10 +1007,10 @@
                 }
               ]
             },
-            "order": 5
+            "order": 4
           },
           {
-            "id": "6",
+            "id": "5",
             "name": "gitlab-release-publish",
             "slug": "gitlab-release-publish",
             "stage": "publish",
@@ -1066,7 +1020,6 @@
               "changelog-generate",
               "gitleaks-scan",
               "helm-build-test-helm-chart",
-              "helm-lint-test-helm-chart",
               "semgrep-scan",
               "trivyfs-scan"
             ],
@@ -1074,7 +1027,6 @@
               "changelog-generate",
               "gitleaks-scan",
               "helm-build [test-helm-chart]",
-              "helm-lint [test-helm-chart]",
               "semgrep-scan",
               "trivyfs-scan"
             ],
@@ -1138,7 +1090,7 @@
               ]
             },
             "outputs": {},
-            "order": 6
+            "order": 5
           }
         ]
       },
@@ -1151,8 +1103,8 @@
         "quay.io/podman/stable": {
           "id": "quay.io/podman/stable",
           "type": "oci-container",
-          "version": "v5.4.2-immutable",
-          "hash": "642704dd0bcd909b722a06e0dbe199bc74163047886c3d5c869fe2c0d8e3d4d5"
+          "version": "v5.5.2-immutable",
+          "hash": "866bbcac26adb7ff238145405fa0ade33bd7e9c7bb77a5c05f819dce8a753063"
         }
       },
       "ignore_files": [
@@ -1171,6 +1123,7 @@
       "name_slug": "main",
       "job_timeout": 10,
       "default_branch": "main",
+      "container_runtime": "podman",
       "workflow_key": "main",
       "workflow_config": {
         "type": "main",
@@ -1492,8 +1445,8 @@
         "quay.io/podman/stable": {
           "id": "quay.io/podman/stable",
           "type": "oci-container",
-          "version": "v5.4.2-immutable",
-          "hash": "642704dd0bcd909b722a06e0dbe199bc74163047886c3d5c869fe2c0d8e3d4d5"
+          "version": "v5.5.2-immutable",
+          "hash": "866bbcac26adb7ff238145405fa0ade33bd7e9c7bb77a5c05f819dce8a753063"
         }
       },
       "ignore_files": [

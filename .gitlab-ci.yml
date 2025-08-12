@@ -5,7 +5,7 @@
 
 # global defaults
 default:
-  image: quay.io/podman/stable@sha256:642704dd0bcd909b722a06e0dbe199bc74163047886c3d5c869fe2c0d8e3d4d5 # v5.4.2-immutable
+  image: quay.io/podman/stable@sha256:866bbcac26adb7ff238145405fa0ade33bd7e9c7bb77a5c05f819dce8a753063 # v5.5.2-immutable
   before_script:
     - curl -L -o /usr/local/bin/cid https://github.com/cidverse/cid/releases/download/v0.5.0/linux_amd64
     - chmod +x /usr/local/bin/cid
@@ -29,6 +29,7 @@ stages:
 
 # configuration snippets
 .default-job: &default_job
+  
   tags:
     - saas-linux-small-amd64
   allow_failure: false
@@ -255,24 +256,6 @@ stages:
       paths:
         - .dist/helm-build-test-helm-chart/
       expire_in: 1 day
-## helm-lint [test-helm-chart]
-"release/helm-lint [test-helm-chart]":
-    <<: *default_job
-    stage: lint
-    needs: []
-    dependencies: []
-    timeout: 10m
-    rules:
-      - if: '$CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_TAG =~ /^v[0-9]+.[0-9]+.[0-9]+$/'
-        when: always
-      - when: never
-    script:
-        - cid --log-level=${CID_LOGLEVEL:-info} plan execute --state-file ".cid/state-gitlab.json" --state-wf-name "release" --step "helm-lint-test-helm-chart"
-    artifacts:
-      name: "release/helm-lint [test-helm-chart]"
-      paths:
-        - .dist/helm-lint-test-helm-chart/
-      expire_in: 1 day
 ## gitleaks-scan
 "release/gitleaks-scan":
     <<: *default_job
@@ -337,7 +320,7 @@ stages:
 "release/changelog-generate":
     <<: *default_job
     stage: publish
-    needs: ["release/gitleaks-scan", "release/helm-build [test-helm-chart]", "release/helm-lint [test-helm-chart]", "release/semgrep-scan", "release/trivyfs-scan"]
+    needs: ["release/gitleaks-scan", "release/helm-build [test-helm-chart]", "release/semgrep-scan", "release/trivyfs-scan"]
     dependencies: []
     timeout: 10m
     rules:
@@ -355,7 +338,7 @@ stages:
 "release/gitlab-release-publish":
     <<: *default_job
     stage: publish
-    needs: ["release/changelog-generate", "release/gitleaks-scan", "release/helm-build [test-helm-chart]", "release/helm-lint [test-helm-chart]", "release/semgrep-scan", "release/trivyfs-scan"]
+    needs: ["release/changelog-generate", "release/gitleaks-scan", "release/helm-build [test-helm-chart]", "release/semgrep-scan", "release/trivyfs-scan"]
     dependencies: ["release/changelog-generate"]
     timeout: 10m
     rules:
