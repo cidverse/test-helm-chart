@@ -1,7 +1,7 @@
 {
   "workflows": {
     "Nightly": {
-      "version": "0.5.0",
+      "version": "0.9.0",
       "name": "Nightly",
       "name_slug": "nightly",
       "job_timeout": 10,
@@ -327,16 +327,17 @@
         ]
       },
       "workflow_dependency": {
-        "cid": {
-          "id": "cid",
-          "type": "binary",
-          "version": "0.5.0"
+        "pkg:docker/podman/stable?repository_url=quay.io": {
+          "id": "podman/stable",
+          "type": "docker",
+          "version": "v5.8.1-immutable",
+          "hash": "42d8b3d789333f07e631305325a02b4ab33c3f107413e04b612973a72f1d7deb",
+          "repository": "quay.io"
         },
-        "quay.io/podman/stable": {
-          "id": "quay.io/podman/stable",
-          "type": "oci-container",
-          "version": "v5.5.2-immutable",
-          "hash": "866bbcac26adb7ff238145405fa0ade33bd7e9c7bb77a5c05f819dce8a753063"
+        "pkg:github/cidverse/cid": {
+          "id": "cidverse/cid",
+          "type": "github",
+          "version": "0.9.0"
         }
       },
       "ignore_files": [
@@ -346,11 +347,12 @@
         ".gitattributes",
         ".editorconfig",
         "renovate.json",
-        "CODEOWNERS"
+        "CODEOWNERS",
+        "SECURITY.md"
       ]
     },
     "Pull Request": {
-      "version": "0.5.0",
+      "version": "0.9.0",
       "name": "Pull Request",
       "name_slug": "pull-request",
       "job_timeout": 10,
@@ -674,16 +676,17 @@
         ]
       },
       "workflow_dependency": {
-        "cid": {
-          "id": "cid",
-          "type": "binary",
-          "version": "0.5.0"
+        "pkg:docker/podman/stable?repository_url=quay.io": {
+          "id": "podman/stable",
+          "type": "docker",
+          "version": "v5.8.1-immutable",
+          "hash": "42d8b3d789333f07e631305325a02b4ab33c3f107413e04b612973a72f1d7deb",
+          "repository": "quay.io"
         },
-        "quay.io/podman/stable": {
-          "id": "quay.io/podman/stable",
-          "type": "oci-container",
-          "version": "v5.5.2-immutable",
-          "hash": "866bbcac26adb7ff238145405fa0ade33bd7e9c7bb77a5c05f819dce8a753063"
+        "pkg:github/cidverse/cid": {
+          "id": "cidverse/cid",
+          "type": "github",
+          "version": "0.9.0"
         }
       },
       "ignore_files": [
@@ -693,11 +696,12 @@
         ".gitattributes",
         ".editorconfig",
         "renovate.json",
-        "CODEOWNERS"
+        "CODEOWNERS",
+        "SECURITY.md"
       ]
     },
     "Release": {
-      "version": "0.5.0",
+      "version": "0.9.0",
       "name": "Release",
       "name_slug": "release",
       "job_timeout": 10,
@@ -1115,16 +1119,17 @@
         ]
       },
       "workflow_dependency": {
-        "cid": {
-          "id": "cid",
-          "type": "binary",
-          "version": "0.5.0"
+        "pkg:docker/podman/stable?repository_url=quay.io": {
+          "id": "podman/stable",
+          "type": "docker",
+          "version": "v5.8.1-immutable",
+          "hash": "42d8b3d789333f07e631305325a02b4ab33c3f107413e04b612973a72f1d7deb",
+          "repository": "quay.io"
         },
-        "quay.io/podman/stable": {
-          "id": "quay.io/podman/stable",
-          "type": "oci-container",
-          "version": "v5.5.2-immutable",
-          "hash": "866bbcac26adb7ff238145405fa0ade33bd7e9c7bb77a5c05f819dce8a753063"
+        "pkg:github/cidverse/cid": {
+          "id": "cidverse/cid",
+          "type": "github",
+          "version": "0.9.0"
         }
       },
       "ignore_files": [
@@ -1134,11 +1139,12 @@
         ".gitattributes",
         ".editorconfig",
         "renovate.json",
-        "CODEOWNERS"
+        "CODEOWNERS",
+        "SECURITY.md"
       ]
     },
     "Main": {
-      "version": "0.5.0",
+      "version": "0.9.0",
       "name": "Main",
       "name_slug": "main",
       "job_timeout": 10,
@@ -1465,16 +1471,17 @@
         ]
       },
       "workflow_dependency": {
-        "cid": {
-          "id": "cid",
-          "type": "binary",
-          "version": "0.5.0"
+        "pkg:docker/podman/stable?repository_url=quay.io": {
+          "id": "podman/stable",
+          "type": "docker",
+          "version": "v5.8.1-immutable",
+          "hash": "42d8b3d789333f07e631305325a02b4ab33c3f107413e04b612973a72f1d7deb",
+          "repository": "quay.io"
         },
-        "quay.io/podman/stable": {
-          "id": "quay.io/podman/stable",
-          "type": "oci-container",
-          "version": "v5.5.2-immutable",
-          "hash": "866bbcac26adb7ff238145405fa0ade33bd7e9c7bb77a5c05f819dce8a753063"
+        "pkg:github/cidverse/cid": {
+          "id": "cidverse/cid",
+          "type": "github",
+          "version": "0.9.0"
         }
       },
       "ignore_files": [
@@ -1484,7 +1491,8 @@
         ".gitattributes",
         ".editorconfig",
         "renovate.json",
-        "CODEOWNERS"
+        "CODEOWNERS",
+        "SECURITY.md"
       ]
     }
   }
