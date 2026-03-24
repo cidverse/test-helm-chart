@@ -1,7 +1,7 @@
 {
   "workflows": {
     "Nightly": {
-      "version": "0.5.0",
+      "version": "0.9.0",
       "name": "Nightly",
       "name_slug": "nightly",
       "job_timeout": 10,
@@ -437,7 +437,11 @@
                 },
                 {
                   "name": "GH_TOKEN",
-                  "description": "GH_TOKEN is required for some online audits"
+                  "description": "GH_TOKEN is required for some online audits. Takes precedence over GITHUB_TOKEN"
+                },
+                {
+                  "name": "GITHUB_TOKEN",
+                  "description": "GITHUB_TOKEN is set automatically by GitHub Actions"
                 }
               ],
               "executables": [
@@ -569,7 +573,42 @@
           }
         ]
       },
-      "workflow_dependency": {},
+      "workflow_dependency": {
+        "pkg:github-action-runner-image/ubuntu": {
+          "id": "ubuntu",
+          "type": "github-action-runner-image",
+          "version": "24.04"
+        },
+        "pkg:github-action/actions/checkout": {
+          "id": "actions/checkout",
+          "type": "github-action",
+          "version": "v6.0.2",
+          "hash": "de0fac2e4500dabe0009e67214ff5f5447ce83dd"
+        },
+        "pkg:github-action/actions/download-artifact": {
+          "id": "actions/download-artifact",
+          "type": "github-action",
+          "version": "v8.0.1",
+          "hash": "3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c"
+        },
+        "pkg:github-action/actions/upload-artifact": {
+          "id": "actions/upload-artifact",
+          "type": "github-action",
+          "version": "v7.0.0",
+          "hash": "bbbca2ddaa5d8feaa63e36b76fdaad77386f024f"
+        },
+        "pkg:github-action/step-security/harden-runner": {
+          "id": "step-security/harden-runner",
+          "type": "github-action",
+          "version": "v2.16.0",
+          "hash": "fa2e9d605c4eeb9fcad4c99c224cee0c6c7f3594"
+        },
+        "pkg:github/cidverse/cid": {
+          "id": "cidverse/cid",
+          "type": "github",
+          "version": "0.9.0"
+        }
+      },
       "ignore_files": [
         "README.md",
         "LICENSE",
@@ -577,11 +616,12 @@
         ".gitattributes",
         ".editorconfig",
         "renovate.json",
-        "CODEOWNERS"
+        "CODEOWNERS",
+        "SECURITY.md"
       ]
     },
     "Pull Request": {
-      "version": "0.5.0",
+      "version": "0.9.0",
       "name": "Pull Request",
       "name_slug": "pull-request",
       "job_timeout": 10,
@@ -1015,7 +1055,11 @@
                 },
                 {
                   "name": "GH_TOKEN",
-                  "description": "GH_TOKEN is required for some online audits"
+                  "description": "GH_TOKEN is required for some online audits. Takes precedence over GITHUB_TOKEN"
+                },
+                {
+                  "name": "GITHUB_TOKEN",
+                  "description": "GITHUB_TOKEN is set automatically by GitHub Actions"
                 }
               ],
               "executables": [
@@ -1147,7 +1191,42 @@
           }
         ]
       },
-      "workflow_dependency": {},
+      "workflow_dependency": {
+        "pkg:github-action-runner-image/ubuntu": {
+          "id": "ubuntu",
+          "type": "github-action-runner-image",
+          "version": "24.04"
+        },
+        "pkg:github-action/actions/checkout": {
+          "id": "actions/checkout",
+          "type": "github-action",
+          "version": "v6.0.2",
+          "hash": "de0fac2e4500dabe0009e67214ff5f5447ce83dd"
+        },
+        "pkg:github-action/actions/download-artifact": {
+          "id": "actions/download-artifact",
+          "type": "github-action",
+          "version": "v8.0.1",
+          "hash": "3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c"
+        },
+        "pkg:github-action/actions/upload-artifact": {
+          "id": "actions/upload-artifact",
+          "type": "github-action",
+          "version": "v7.0.0",
+          "hash": "bbbca2ddaa5d8feaa63e36b76fdaad77386f024f"
+        },
+        "pkg:github-action/step-security/harden-runner": {
+          "id": "step-security/harden-runner",
+          "type": "github-action",
+          "version": "v2.16.0",
+          "hash": "fa2e9d605c4eeb9fcad4c99c224cee0c6c7f3594"
+        },
+        "pkg:github/cidverse/cid": {
+          "id": "cidverse/cid",
+          "type": "github",
+          "version": "0.9.0"
+        }
+      },
       "ignore_files": [
         "README.md",
         "LICENSE",
@@ -1155,11 +1234,12 @@
         ".gitattributes",
         ".editorconfig",
         "renovate.json",
-        "CODEOWNERS"
+        "CODEOWNERS",
+        "SECURITY.md"
       ]
     },
     "Release": {
-      "version": "0.5.0",
+      "version": "0.9.0",
       "name": "Release",
       "name_slug": "release",
       "job_timeout": 10,
@@ -1544,7 +1624,11 @@
                 },
                 {
                   "name": "GH_TOKEN",
-                  "description": "GH_TOKEN is required for some online audits"
+                  "description": "GH_TOKEN is required for some online audits. Takes precedence over GITHUB_TOKEN"
+                },
+                {
+                  "name": "GITHUB_TOKEN",
+                  "description": "GITHUB_TOKEN is set automatically by GitHub Actions"
                 }
               ],
               "executables": [
@@ -1774,6 +1858,13 @@
               "changelog-generate"
             ],
             "access": {
+              "env": [
+                {
+                  "name": "GITHUB_TOKEN",
+                  "description": "The GitHub token to use for creating the release.",
+                  "required": true
+                }
+              ],
               "network": [
                 {
                   "host": "github.com:443"
@@ -1819,7 +1910,42 @@
           }
         ]
       },
-      "workflow_dependency": {},
+      "workflow_dependency": {
+        "pkg:github-action-runner-image/ubuntu": {
+          "id": "ubuntu",
+          "type": "github-action-runner-image",
+          "version": "24.04"
+        },
+        "pkg:github-action/actions/checkout": {
+          "id": "actions/checkout",
+          "type": "github-action",
+          "version": "v6.0.2",
+          "hash": "de0fac2e4500dabe0009e67214ff5f5447ce83dd"
+        },
+        "pkg:github-action/actions/download-artifact": {
+          "id": "actions/download-artifact",
+          "type": "github-action",
+          "version": "v8.0.1",
+          "hash": "3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c"
+        },
+        "pkg:github-action/actions/upload-artifact": {
+          "id": "actions/upload-artifact",
+          "type": "github-action",
+          "version": "v7.0.0",
+          "hash": "bbbca2ddaa5d8feaa63e36b76fdaad77386f024f"
+        },
+        "pkg:github-action/step-security/harden-runner": {
+          "id": "step-security/harden-runner",
+          "type": "github-action",
+          "version": "v2.16.0",
+          "hash": "fa2e9d605c4eeb9fcad4c99c224cee0c6c7f3594"
+        },
+        "pkg:github/cidverse/cid": {
+          "id": "cidverse/cid",
+          "type": "github",
+          "version": "0.9.0"
+        }
+      },
       "ignore_files": [
         "README.md",
         "LICENSE",
@@ -1827,11 +1953,12 @@
         ".gitattributes",
         ".editorconfig",
         "renovate.json",
-        "CODEOWNERS"
+        "CODEOWNERS",
+        "SECURITY.md"
       ]
     },
     "Main": {
-      "version": "0.5.0",
+      "version": "0.9.0",
       "name": "Main",
       "name_slug": "main",
       "job_timeout": 10,
@@ -2268,7 +2395,11 @@
                 },
                 {
                   "name": "GH_TOKEN",
-                  "description": "GH_TOKEN is required for some online audits"
+                  "description": "GH_TOKEN is required for some online audits. Takes precedence over GITHUB_TOKEN"
+                },
+                {
+                  "name": "GITHUB_TOKEN",
+                  "description": "GITHUB_TOKEN is set automatically by GitHub Actions"
                 }
               ],
               "executables": [
@@ -2400,7 +2531,42 @@
           }
         ]
       },
-      "workflow_dependency": {},
+      "workflow_dependency": {
+        "pkg:github-action-runner-image/ubuntu": {
+          "id": "ubuntu",
+          "type": "github-action-runner-image",
+          "version": "24.04"
+        },
+        "pkg:github-action/actions/checkout": {
+          "id": "actions/checkout",
+          "type": "github-action",
+          "version": "v6.0.2",
+          "hash": "de0fac2e4500dabe0009e67214ff5f5447ce83dd"
+        },
+        "pkg:github-action/actions/download-artifact": {
+          "id": "actions/download-artifact",
+          "type": "github-action",
+          "version": "v8.0.1",
+          "hash": "3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c"
+        },
+        "pkg:github-action/actions/upload-artifact": {
+          "id": "actions/upload-artifact",
+          "type": "github-action",
+          "version": "v7.0.0",
+          "hash": "bbbca2ddaa5d8feaa63e36b76fdaad77386f024f"
+        },
+        "pkg:github-action/step-security/harden-runner": {
+          "id": "step-security/harden-runner",
+          "type": "github-action",
+          "version": "v2.16.0",
+          "hash": "fa2e9d605c4eeb9fcad4c99c224cee0c6c7f3594"
+        },
+        "pkg:github/cidverse/cid": {
+          "id": "cidverse/cid",
+          "type": "github",
+          "version": "0.9.0"
+        }
+      },
       "ignore_files": [
         "README.md",
         "LICENSE",
@@ -2408,7 +2574,8 @@
         ".gitattributes",
         ".editorconfig",
         "renovate.json",
-        "CODEOWNERS"
+        "CODEOWNERS",
+        "SECURITY.md"
       ]
     }
   }
